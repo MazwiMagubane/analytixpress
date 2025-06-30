@@ -25,6 +25,8 @@ jobs:
         ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.EC2_PORT }} ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
           cd /home/ubuntu/analytixpress
           git pull origin main
-          sudo gunicorn -c config/gunicorn/prod.py
+          source ./.venv/bin/activate
+          pkill gunicorn || true
+          nohup gunicorn -c config/gunicorn/prod.py &
           sudo systemctl restart nginx
         EOF
