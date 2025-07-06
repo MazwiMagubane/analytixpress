@@ -32,6 +32,7 @@ jobs:
           npm install
           npm run build
           python manage.py collectstatic -y
+          pkill gunicorn
           gunicorn -c config/gunicorn/prod.py
           sudo systemctl restart nginx
         EOF
