@@ -26,16 +26,17 @@ jobs:
           cd /home/ubuntu
           echo "export SECRET_KEY='$(openssl rand -hex 40)'" > .DJANGO_SECRET_KEY
           source .DJANGO_SECRET_KEY
-          cd /home/ubuntu/analytixpress
           sudo apt update -y
           sudo apt upgrade -y
+          cd /home/ubuntu/analytixpress
           git pull origin main
           source ./.venv/bin/activate
-          pip install -r requirements.txt -y
+          pip install -r requirements.txt
+          python manage.py makemigrations
+          python manage.py migrate
           npm install -y
           npm run build -y
-          python manage.py collectstatic -y
-          pkill gunicorn
+          python manage.py collectstatic
           gunicorn -c config/gunicorn/prod.py
           sudo systemctl restart nginx
         EOF
