@@ -30,7 +30,6 @@ jobs:
           git pull origin main
           source ./.venv/bin/activate
           python manage.py collectstatic -y
-          pkill gunicorn
           gunicorn -c config/gunicorn/prod.py
           sudo systemctl restart nginx
         EOF
