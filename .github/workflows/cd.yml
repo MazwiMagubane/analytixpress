@@ -34,9 +34,10 @@ jobs:
           pip install -r requirements.txt
           python manage.py makemigrations
           python manage.py migrate
-          npm install -y
-          npm run build -y
+          npm install
+          npm run build
           python manage.py collectstatic --noinput
+          pkill gunicorn || true
           gunicorn -c config/gunicorn/prod.py
           sudo systemctl restart nginx
         EOF
