@@ -29,6 +29,8 @@ jobs:
           cd /home/ubuntu/analytixpress
           git pull origin main
           source ./.venv/bin/activate
+          npm install
+          npm run build
           python manage.py collectstatic -y
           gunicorn -c config/gunicorn/prod.py
           sudo systemctl restart nginx
