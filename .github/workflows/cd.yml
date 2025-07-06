@@ -36,7 +36,7 @@ jobs:
           python manage.py migrate
           npm install -y
           npm run build -y
-          python manage.py collectstatic
+          python manage.py collectstatic --noinput
           gunicorn -c config/gunicorn/prod.py
           sudo systemctl restart nginx
         EOF
