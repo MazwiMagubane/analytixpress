@@ -34,7 +34,6 @@ jobs:
           pip install -r requirements.txt
           python manage.py makemigrations
           python manage.py migrate
-          npm install
           python manage.py collectstatic --noinput
           pkill gunicorn || true
           gunicorn -c config/gunicorn/prod.py
