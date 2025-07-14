@@ -24,7 +24,6 @@ jobs:
       run: |
         ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.EC2_PORT }} ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
           cd /home/ubuntu
-          echo "export SECRET_KEY='$(openssl rand -hex 40)'" > .DJANGO_SECRET_KEY
           source .DJANGO_SECRET_KEY
           sudo apt update -y
           sudo apt upgrade -y
@@ -35,7 +34,6 @@ jobs:
           python manage.py makemigrations
           python manage.py migrate
           python manage.py collectstatic --noinput
-          pkill gunicorn || true
-          gunicorn -c config/gunicorn/prod.py
+          sudo systemctl restart gunicorn
           sudo systemctl restart nginx
         EOF

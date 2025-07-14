@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx @tailwindcss/cli -i static/css/tw.css -o static/css/styles.css"
+    "build:tailwind": "npx @tailwindcss/cli -i static/css/tailwind.css -o static/css/styles.css",
+    "build:alpine": "esbuild static/js/alpine.js --bundle --outfile=static/js/dropdown.js",
+    "build": "npm run build:tailwind && npm run build:alpine"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,8 @@
   "homepage": "https://github.com/MazwiMagubane/analytixpress#readme",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
+    "alpinejs": "^3.14.9",
+    "esbuild": "^0.25.6",
     "tailwindcss": "^4.1.11"
   }
 }
